@@ -1,0 +1,1 @@
+# secretscanning-alerts-action
