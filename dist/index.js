@@ -31965,7 +31965,7 @@ ${nonBreakingAlertsPRFiles.join("\n")}
         //  END: Define helper variable for summary breakingMessagePRFiles
         // BEGIN: Define summary message
         const summary = `
-${breakingAlerts.length > maxAlerts ? summaryTitleFailure : summaryTitleSuccess}
+${alertCount > maxAlerts ? summaryTitleFailure : summaryTitleSuccess}
 
 ## Summary
 
