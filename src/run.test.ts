@@ -40,7 +40,7 @@ describe("run", () => {
                 owner: "test-owner",
                 repo: "test-repo",
                 do_not_break_pr_check: "false",
-                max_alerts: "5",
+                max_alerts: "0",
             };
             return inputs[name];
         });
@@ -134,10 +134,11 @@ describe("run", () => {
             owner: "test-owner",
             repo: "test-repo",
             comment_id: 1,
-            body: expect.stringContaining("- **SECRET** Total Alerts: 1, Threshold: Breaks when > 5"),
+            body: expect.stringContaining("- **SECRET** Total Alerts: 1, Threshold: Breaks when > 0"),
         });
         expect(mockSetOutput).toHaveBeenCalledWith("total_filtered_alerts", 1);
         expect(mockSetOutput).toHaveBeenCalledWith("total_alerts", 1);
+        expect(mockSetOutput).toHaveBeenCalledWith("conclusion", "failure");
     });
 
     it("should create a new comment on a PR if no existing comment is found", async () => {
@@ -162,9 +163,10 @@ describe("run", () => {
             owner: "test-owner",
             repo: "test-repo",
             issue_number: 123,
-            body: expect.stringContaining("- **SECRET** Total Alerts: 1, Threshold: Breaks when > 5"),
+            body: expect.stringContaining("- **SECRET** Total Alerts: 1, Threshold: Breaks when > 0"),
         });
         expect(mockSetOutput).toHaveBeenCalledWith("total_filtered_alerts", 1);
         expect(mockSetOutput).toHaveBeenCalledWith("total_alerts", 1);
+        expect(mockSetOutput).toHaveBeenCalledWith("conclusion", "failure");
     });
 });

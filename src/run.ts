@@ -165,7 +165,7 @@ ${nonBreakingAlertsPRFiles.join("\n")}
 
     // BEGIN: Define summary message
     const summary = `
-${breakingAlerts.length > 0 ? summaryTitleFailure : summaryTitleSuccess}
+${alertCount > maxAlerts ? summaryTitleFailure : summaryTitleSuccess}
 
 ## Summary
 
@@ -174,7 +174,7 @@ ${summaryLines}${breakingMessage.length > 0 ? breakingMessage : ""}${nonBreaking
 
     let conclusion: "failure" | "success";
     conclusion = "success";
-    if (!doNotBreakPRCheck && alertCount > maxAlerts && maxAlerts > 0) {
+    if (!doNotBreakPRCheck && alertCount > maxAlerts && maxAlerts >= 0) {
         conclusion = "failure";
     }
 
