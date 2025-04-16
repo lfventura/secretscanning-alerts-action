@@ -31843,6 +31843,7 @@ async function run() {
         const token = core.getInput("github_token");
         const owner = core.getInput("owner");
         const repo = core.getInput("repo");
+        const printSummary = core.getInput("print_summary") === "true";
         const doNotBreakPRCheck = core.getInput("do_not_break_pr_check") === "true";
         const maxAlerts = parseInt(core.getInput("max_alerts"), 10);
         const octokit = github.getOctokit(token);
@@ -32032,7 +32033,9 @@ ${summaryLines}${breakingMessage.length > 0 ? breakingMessage : ""}${nonBreaking
         // Set outputs for the action
         core.setOutput("total_filtered_alerts", alertCount);
         core.setOutput("total_alerts", alerts.length);
-        core.info(`summary: ${summary}`);
+        if (printSummary) {
+            core.info(`summary: ${summary}`);
+        }
         core.setOutput("conclusion", conclusion);
         if (conclusion == "success") {
             core.info("Code Scanning Alerts threshold not exceeded");
