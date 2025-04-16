@@ -31965,7 +31965,7 @@ ${nonBreakingAlertsPRFiles.join("\n")}
         //  END: Define helper variable for summary breakingMessagePRFiles
         // BEGIN: Define summary message
         const summary = `
-${breakingAlerts.length >= maxAlerts ? summaryTitleFailure : summaryTitleSuccess}
+${breakingAlerts.length > maxAlerts ? summaryTitleFailure : summaryTitleSuccess}
 
 ## Summary
 
@@ -31973,7 +31973,7 @@ ${summaryLines}${breakingMessage.length > 0 ? breakingMessage : ""}${nonBreaking
         // END: Define summary message
         let conclusion;
         conclusion = "success";
-        if (!doNotBreakPRCheck && alertCount >= maxAlerts && maxAlerts >= 0) {
+        if (!doNotBreakPRCheck && alertCount > maxAlerts && maxAlerts >= 0) {
             conclusion = "failure";
         }
         // Declares the final summary message
