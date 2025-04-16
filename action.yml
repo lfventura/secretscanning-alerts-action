@@ -23,6 +23,11 @@ inputs:
     required: false
     default: false
     type: boolean
+  print_summary:
+    description: 'Print a summary of the alerts'
+    required: false
+    default: false
+    type: boolean
   
 outputs:
   total_alerts:
