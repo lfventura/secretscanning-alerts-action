@@ -28,6 +28,6 @@ jobs:
       - name: Run Secret Scanning Alerts Check
         uses: ./ # Use the current repository as the action
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GH_SECRET }}
           max_alerts: 0
           do_not_break_pr_check: false
