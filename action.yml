@@ -27,6 +27,8 @@ inputs:
 outputs:
   total_alerts:
     description: 'Total number of alerts'
+  total_filtered_alerts:
+    description: 'Total number of filtered alerts'
 runs:
   using: 'node20'
   main: 'dist/index.js'

@@ -31930,7 +31930,7 @@ async function run() {
         }
         ;
         // Remove alerts that are part of the PR
-        alerts = alerts.filter((_, index) => !disregardAlerts.includes(index));
+        // alerts = alerts.filter((_, index) => !disregardAlerts.includes(index));
         // Prepare output summary dynamically
         const summaryLines = `- **SECRET** Total Alerts: ${alertCount}, Threshold: ${maxAlerts < 0
             ? "Notify only"
@@ -31966,8 +31966,9 @@ ${nonBreakingAlertsPRFiles.join("\n")}
         // BEGIN: Define summary message
         const summary = `
 ${breakingAlerts.length > 0 ? summaryTitleFailure : summaryTitleSuccess}
+
 ## Summary
-- **TOTAL** Alerts: ${alerts.length}
+
 ${summaryLines}${breakingMessage.length > 0 ? breakingMessage : ""}${nonBreakingMessage.length > 0 ? nonBreakingMessage : ""}${breakingMessagePRFiles.length > 0 ? breakingMessagePRFiles : ""}`;
         // END: Define summary message
         let conclusion;
@@ -32029,7 +32030,8 @@ ${summaryLines}${breakingMessage.length > 0 ? breakingMessage : ""}${nonBreaking
             core.info("No PR number found. Skipping comment creation.");
         }
         // Set outputs for the action
-        core.setOutput("total_alerts", alertCount);
+        core.setOutput("total_filtered_alerts", alertCount);
+        core.setOutput("total_alerts", alerts.length);
         core.info(`summary: ${summary}`);
         core.setOutput("conclusion", conclusion);
         if (conclusion == "success") {
