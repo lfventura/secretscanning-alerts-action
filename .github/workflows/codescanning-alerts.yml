@@ -1,0 +1,33 @@
+name: Secret Scanning Alerts Check
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+# permissions: write-all
+permissions:
+  contents: read
+  pull-requests: write
+  security-events: read
+  checks: write
+
+jobs:
+  check-secret-scanning-alerts:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Run the custom action
+      - name: Run Secret Scanning Alerts Check
+        uses: ./ # Use the current repository as the action
+        with:
+          github_token: ${{ secrets.GH_SECRET }}
+          max_alerts: 0
+          do_not_break_pr_check: false

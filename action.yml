@@ -1,0 +1,37 @@
+name: 'Check SecretScanning Alerts'
+description: 'Check for open Secret Scanning alerts and validate against thresholds.'
+author: 'Lucas Ventura'
+inputs:
+  github_token:
+    description: The GitHub token used to create an authenticated client
+    default: ${{ github.token }}
+    required: false
+  owner:
+    description: The owner of the repository
+    default: ${{ github.repository_owner }}
+    required: false
+  repo:
+    description: The name of the repository
+    default: ${{ github.event.repository.name }}
+    required: false
+  max_alerts:
+    description: 'Maximum allowed alerts'
+    required: false
+    default: -1
+  do_not_break_pr_check:
+    description: 'Do not break the PR check if the thresholds are exceeded'
+    required: false
+    default: false
+    type: boolean
+  
+outputs:
+  total_alerts:
+    description: 'Total number of alerts'
+  total_filtered_alerts:
+    description: 'Total number of filtered alerts'
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
+branding:
+  icon: 'shield'
+  color: 'red'
