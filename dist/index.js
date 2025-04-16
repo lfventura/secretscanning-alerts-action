@@ -31974,7 +31974,7 @@ ${summaryLines}${breakingMessage.length > 0 ? breakingMessage : ""}${nonBreaking
         // END: Define summary message
         let conclusion;
         conclusion = "success";
-        if (!doNotBreakPRCheck && alertCount > maxAlerts && maxAlerts >= 0) {
+        if (alertCount > maxAlerts && maxAlerts >= 0) {
             conclusion = "failure";
         }
         // Declares the final summary message

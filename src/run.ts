@@ -175,7 +175,7 @@ ${summaryLines}${breakingMessage.length > 0 ? breakingMessage : ""}${nonBreaking
 
     let conclusion: "failure" | "success";
     conclusion = "success";
-    if (!doNotBreakPRCheck && alertCount > maxAlerts && maxAlerts >= 0) {
+    if (alertCount > maxAlerts && maxAlerts >= 0) {
         conclusion = "failure";
     }
 
@@ -248,7 +248,7 @@ ${summaryLines}${breakingMessage.length > 0 ? breakingMessage : ""}${nonBreaking
     if (printSummary) {
       core.info(`summary: ${summary}`);
     }
-    
+
     core.setOutput("conclusion", conclusion);
 
     if (conclusion == "success") {
