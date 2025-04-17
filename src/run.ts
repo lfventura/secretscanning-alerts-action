@@ -248,10 +248,10 @@ ${summaryLines}${breakingMessage.length > 0 ? breakingMessage : ""}${nonBreaking
     if (printSummary) {
       core.info(`summary: ${summary}`);
     }
-
+    
     core.setOutput("conclusion", conclusion);
 
-    if (conclusion == "success") {
+    if (conclusion == "success" || doNotBreakPRCheck) {
       core.info("Code Scanning Alerts threshold not exceeded");
     } else {
       core.setFailed("Code scanning alerts exceed the allowed thresholds");
