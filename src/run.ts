@@ -8,6 +8,7 @@ export async function run(): Promise<void> {
     const token: string = core.getInput("github_token");
     const owner: string = core.getInput("owner");
     const repo: string = core.getInput("repo");
+    const printSummary: boolean = core.getInput("print_summary") === "true";
 
     const doNotBreakPRCheck: boolean =
       core.getInput("do_not_break_pr_check") === "true";
@@ -174,7 +175,7 @@ ${summaryLines}${breakingMessage.length > 0 ? breakingMessage : ""}${nonBreaking
 
     let conclusion: "failure" | "success";
     conclusion = "success";
-    if (!doNotBreakPRCheck && alertCount > maxAlerts && maxAlerts >= 0) {
+    if (alertCount > maxAlerts && maxAlerts >= 0) {
         conclusion = "failure";
     }
 
@@ -244,10 +245,13 @@ ${summaryLines}${breakingMessage.length > 0 ? breakingMessage : ""}${nonBreaking
     core.setOutput("total_filtered_alerts", alertCount);
     core.setOutput("total_alerts", alerts.length);
 
-    core.info(`summary: ${summary}`);
+    if (printSummary) {
+      core.info(`summary: ${summary}`);
+    }
+    
     core.setOutput("conclusion", conclusion);
 
-    if (conclusion == "success") {
+    if (conclusion == "success" || doNotBreakPRCheck) {
       core.info("Code Scanning Alerts threshold not exceeded");
     } else {
       core.setFailed("Code scanning alerts exceed the allowed thresholds");
